@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Page</title>
+  <link rel="stylesheet" href="login.css">
+  <script type="text/javascript">
+      function validateLoginForm() {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        if (username === '') {
+            alert('Please enter a username.');
+            return false;
+        }
+        if (password === '') {
+            alert('Please enter a password.');
+            return false;
+        }
+        if (username == 1156) {
+            if(password == 123){
+                window.location.href = 'index.html';
+            } else{
+                alert('Incorrect password');
+            }
+        } else {
+            alert('Incorrect username');
+            return false;
+        }
+    }
+  </script>
+</head>
+<body>
+  <h2>Login Page</h2>
+  <form action="/login" method="POST" onsubmit="return validateLoginForm();">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username"><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password"><br>
+
+    <input type="submit" value="Login">
+  </form>
+</body>
+</html>

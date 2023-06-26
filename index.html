@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Sensor Data Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sensor-values {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .sensor-value {
+            width: 200px;
+            height: 100px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sensor Data</h1>
+    <div class="sensor-values">
+        <div class="sensor-value" id="sensor1">Sensor 1: <span id="sensor1Value"></span></div>
+        <div class="sensor-value" id="sensor2">Sensor 2: <span id="sensor2Value"></span></div>
+        <div class="sensor-value" id="sensor3">Sensor 3: <span id="sensor3Value"></span></div>
+        <div class="sensor-value" id="sensor4">Sensor 4: <span id="sensor4Value"></span></div>
+        <div class="sensor-value" id="sensor5">Sensor 5: <span id="sensor5Value"></span></div>
+    </div>
+
+    <script>
+        // Function to update sensor values from the API
+        function updateSensorValues() {
+            // Make a request to the API
+            fetch('https://api.thingspeak.com/channels/2203604/feeds.json?api_key=09KGAMFYWY93S9LI&results=1')
+                .then(response => response.json())
+                .then(data => {
+                    // Extract the sensor values from the API response
+                    var sensor1Value = data.feeds[0].field1;
+                    var sensor2Value = data.feeds[0].field2;
+                    var sensor3Value = data.feeds[0].field3;
+                    var sensor4Value = data.feeds[0].field4;
+                    var sensor5Value = data.feeds[0].field5;
+
+                    // Update the HTML elements with the new sensor values
+                    document.getElementById('sensor1Value').innerText = sensor1Value;
+                    document.getElementById('sensor2Value').innerText = sensor2Value;
+                    document.getElementById('sensor3Value').innerText = sensor3Value;
+                    document.getElementById('sensor4Value').innerText = sensor4Value;
+                    document.getElementById('sensor5Value').innerText = sensor5Value;
+                })
+                .catch(error => console.log(error));
+        }
+
+        // Update the sensor values every 2 seconds (example interval)
+        setInterval(updateSensorValues, 2000);
+    </script>
+</body>
+</html>
